@@ -6,19 +6,29 @@ public class CharacterControllerScript : MonoBehaviour
 {
     CharacterController character;
     public float speed;
+    public float rotateSpeed;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
-        character = GetComponent<CharacterController>(); 
+        character = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(inputX, 0f,inputY);
-        character.Move(movement * Time.deltaTime);
+        float inputZ = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(inputX, 0f,inputZ);
+        character.SimpleMove(movement *speed* Time.deltaTime);
+        anim.SetFloat("speed", movement.magnitude);
+        if (movement.magnitude > 0f)
+        {
+            Quaternion tempDirection = Quaternion.LookRotation(movement * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * rotateSpeed);
+        }
+
         
     }
 }
