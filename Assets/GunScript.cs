@@ -11,10 +11,13 @@ public class GunScript : MonoBehaviour
     float damageRate = 1.0f;
     float timer;
     public Transform spawnPoint;
+    public Vector3 offset;
+
+   public  ParticleSystem particle;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -32,12 +35,13 @@ public class GunScript : MonoBehaviour
     }
     private void ToFireGun()
     {
-        Debug.DrawRay(spawnPoint.transform.position, transform.forward * 100, Color.red,2f);
+        particle.Play();
+        Debug.DrawRay(spawnPoint.transform.position+offset, transform.forward * 100, Color.red,2f);
         Ray ray = new Ray(spawnPoint.position, transform.forward);
         RaycastHit HitInfo;
         if(Physics.Raycast(ray,out HitInfo,100f))
         {
-            Debug.Log(HitInfo);
+          
             //need to shoot the enemy
            var health= HitInfo.collider.GetComponent<EnemyScript>();
             if(health!=null)

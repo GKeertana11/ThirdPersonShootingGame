@@ -23,10 +23,15 @@ public class CharacterControllerScript : MonoBehaviour
         Vector3 movement = new Vector3(inputX, 0f,inputZ);
         character.SimpleMove(movement *speed* Time.deltaTime);
         anim.SetFloat("speed", movement.magnitude);
-        if (movement.magnitude > 0f)
+        /*  if (movement.magnitude > 0f)
+          {
+              Quaternion tempDirection = Quaternion.LookRotation(movement * Time.deltaTime);
+              transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * rotateSpeed);
+          }*/
+        transform.Rotate(Vector3.up, inputX * rotateSpeed * Time.deltaTime);
+        if(inputZ!=0)
         {
-            Quaternion tempDirection = Quaternion.LookRotation(movement * Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * rotateSpeed);
+            character.SimpleMove(transform.forward * Time.deltaTime * inputZ);
         }
 
         
