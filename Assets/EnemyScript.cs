@@ -11,6 +11,9 @@ public class EnemyScript : MonoBehaviour
     int currentHealth;
     NavMeshAgent Agent;
     public GameObject player;
+    public ParticleSystem particle;
+    public ParticleSystem deathEffect;
+
     
 
     // Start is called before the first frame update
@@ -18,19 +21,24 @@ public class EnemyScript : MonoBehaviour
     {
         currentHealth = startingHealth;
         Agent = GetComponent<NavMeshAgent>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Agent.SetDestination(player.transform.position);
         Agent.stoppingDistance = 10f;
     }
     public void Damage(int damageAmount)
     {
+        particle.Play();
         currentHealth -= damageAmount;
+
         if(currentHealth<=0)
         {
+            deathEffect.Play();
             Death();
             Debug.Log(currentHealth);
         }
@@ -38,5 +46,7 @@ public class EnemyScript : MonoBehaviour
     public void Death()
     {
         gameObject.SetActive(false);
-    }
+      }
+
+  
 }
