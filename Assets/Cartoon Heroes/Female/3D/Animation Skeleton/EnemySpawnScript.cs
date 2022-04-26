@@ -22,7 +22,7 @@ public class EnemySpawnScript : MonoBehaviour
             if (Random.Range(0, 100) < 1f)
             {
 
-                temp.transform.position = temp.transform.position + new Vector3(Random.Range(-48f, 27f), 0f, Random.Range(-14f, -4f));
+                temp.transform.position = temp.transform.position + new Vector3(Random.Range(-48f, 27f), 1f, Random.Range(-14f, -4f));
                 temp.SetActive(true);
             }
         }
