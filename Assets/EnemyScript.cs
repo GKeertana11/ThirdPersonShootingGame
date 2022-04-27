@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
     {
 
         Agent.SetDestination(player.transform.position);
-        Agent.stoppingDistance = 10f;
+        Agent.stoppingDistance = 5f;
     }
     public void Damage(int damageAmount)
     {

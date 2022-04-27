@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < Enemypool.Count; i++)
         {
-            if (/*Enemypool[i].gameObject.tag == tagname &&*/ !Enemypool[i].gameObject.activeInHierarchy)
+            if ( !Enemypool[i].gameObject.activeInHierarchy)
             {
                 return Enemypool[i].gameObject;
             }
