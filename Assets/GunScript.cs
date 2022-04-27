@@ -12,12 +12,23 @@ public class GunScript : MonoBehaviour
     float timer;
     public Transform spawnPoint;
     public Vector3 offset;
+   public AudioSource audioSource;
+    public List<AudioClip> audioClips;
+    public  ParticleSystem particle;
+    public static GunScript instance;
 
-   public  ParticleSystem particle;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        return;
+    }
     // Start is called before the first frame update
     void Start()
     {
-       
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,6 +47,7 @@ public class GunScript : MonoBehaviour
     private void ToFireGun()
     {
         particle.Play();
+        audioSource.PlayOneShot(audioClips[1]);
         Debug.DrawRay(spawnPoint.transform.position+offset, transform.forward * 100, Color.red,2f);
         Ray ray = new Ray(spawnPoint.position, transform.forward);
         RaycastHit HitInfo;
@@ -50,6 +62,11 @@ public class GunScript : MonoBehaviour
             }
 
         }
+
        
+    }
+    public void walk()
+    {
+        audioSource.PlayOneShot(audioClips[0]);
     }
 }

@@ -7,18 +7,28 @@ public class EnemyScript : MonoBehaviour
 {
     [SerializeField]
     int startingHealth;
-    [SerializeField]
-    int currentHealth;
+    
+    public int currentHealth;
     NavMeshAgent Agent;
     public GameObject player;
     public ParticleSystem particle;
     public ParticleSystem deathEffect;
+    public static EnemyScript instance;
+    AudioSource Audio;
 
-    
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        return;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        Audio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
         Agent = GetComponent<NavMeshAgent>();
        
@@ -38,6 +48,7 @@ public class EnemyScript : MonoBehaviour
 
         if(currentHealth<=0)
         {
+            Audio.Play();
             deathEffect.Play();
             Death();
             Debug.Log(currentHealth);
@@ -45,6 +56,7 @@ public class EnemyScript : MonoBehaviour
     }
     public void Death()
     {
+       
         gameObject.SetActive(false);
       }
 

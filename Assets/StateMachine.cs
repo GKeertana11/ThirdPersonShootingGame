@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class StateMachine : MonoBehaviour
 {
+    
     Animator anim;
     NavMeshAgent agent;
     public Transform target;
@@ -13,6 +14,7 @@ public class StateMachine : MonoBehaviour
     
    public enum STATE { IDLE,WALK,ATTACK,DAMAGE};
    public STATE state;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -35,33 +37,32 @@ public class StateMachine : MonoBehaviour
             case STATE.ATTACK:
                 Attack();
                 break;
-            case STATE.DAMAGE:
-                Damage();
-                break;
+            
             default:
                 break;
         }
     }
 
-    private void Damage()
-    {
-       
-    }
+   
 
     private void Attack()
     {
         agent.stoppingDistance = 5f;
-        anim.SetBool("Walk", false);
+       
         anim.SetBool("Attack", true);
+        anim.SetBool("Walk", false);
+      
+      
 
     }
 
     private void Walk()
     {
+        
         anim.SetBool("Attack", false);
         anim.SetBool("Walk", true);
         //anim.SetBool("Attack", false);
-        if(Vector3.Distance(target.position,this.transform.position)<=10f)
+        if(Vector3.Distance(target.position,this.transform.position)<=5f)
         {
            
             state = STATE.ATTACK;
@@ -71,6 +72,7 @@ public class StateMachine : MonoBehaviour
 
     private void Idle()
     {
+       
         state = STATE.WALK;
     }
 }
